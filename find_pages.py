@@ -1,5 +1,4 @@
 import requests
-import aspose.words as aw
 from bs4 import BeautifulSoup
 
 
@@ -32,21 +31,14 @@ def get_subpages(url, all_links):
 def get_pages(url, all_links):
     local_links = get_subpages(url, all_links)
     if local_links:
-        builder.write(url.upper() + ": \n")
         print(url.upper() + ": \n")
     for i in local_links:
-        builder.write(i + "\n")
         print(i + "\n")
     while local_links:
         get_pages(local_links[0], all_links)
         local_links.pop(0)
 
-
-doc = aw.Document()
-builder = aw.DocumentBuilder(doc)
-
 main_url = "https://nursing.byu.edu/"
 all_links = []
 
 get_pages(main_url, all_links)
-doc.save("BrightspotPages.docx")
